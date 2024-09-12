@@ -1,0 +1,8 @@
+
+fastapi==0.114.0
+pika==0.13
+SQLAlchemy==2.0.34
+pydantic==2.4.2
+celery==5.4.0
+uvicorn==0.30.6
+pyamqp==0.1.0.7

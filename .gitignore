@@ -1,0 +1,11 @@
+
+# IDE-specific files
+*.DS_Store
+*.idea
+.vscode/
+.venv/
+
+# Build artifacts
+build/
+dist/
+bin/
