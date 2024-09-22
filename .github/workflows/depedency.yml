@@ -26,12 +26,16 @@ jobs:
       # Step 3: List contents of child repository (Optional)
       - name: List Child Repository Contents
         run: ls -R child-repo
+    
+      - name: Install requirements
+        run: |
+          pip install -r child-repo/requirements.txt
 
       # Step 4: Use child repository content in parent repository
       - name: Use Child Repository Content
         run: |
           # Example: If you need to copy a Python package from child to parent
-          cp -r child-repo/my-package/ ./
+          cp -r child-repo/sslv_city_directory_data_models/ ./
           # Now you can use the package in the parent repo
           echo "Child repository package copied to parent repository."
 
@@ -40,7 +44,11 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      # Step 6: Run the project with the new dependencies or code
+      # Step 6: List contents of child repository (Optional)
+      - name: List Parent Repository Contents
+        run: ls -R .
+
+      # Step 7: Run the project with the new dependencies or code
       - name: Run the Project
         run: |
           python main.py # Replace with the actual command for your project
