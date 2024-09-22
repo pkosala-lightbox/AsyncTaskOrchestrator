@@ -1,0 +1,46 @@
+name: Checkout Dependent Package
+
+on:
+  workflow_dispatch: # Allows manual triggering of the workflow
+  push:
+    branches:
+      - main # or any other branch you want this workflow to trigger on
+
+jobs:
+  checkout-dependent:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the parent repository code (no need to specify the repository)
+      - name: Checkout Parent Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Checkout the child repository code
+      - name: Checkout Child Repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PACKAGE_CHECKOUT_TOKEN }}  # Use the PAT stored as a secret
+          repository: pkosala-lightbox/sslv-city-directory-data-models  # Format: username/repo-name
+          path: child-repo  # Directory where child repo will be checked out
+
+      # Step 3: List contents of child repository (Optional)
+      - name: List Child Repository Contents
+        run: ls -R child-repo
+
+      # Step 4: Use child repository content in parent repository
+      - name: Use Child Repository Content
+        run: |
+          # Example: If you need to copy a Python package from child to parent
+          cp -r child-repo/my-package/ ./
+          # Now you can use the package in the parent repo
+          echo "Child repository package copied to parent repository."
+
+      # Step 5: Install dependencies (If needed)
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # Step 6: Run the project with the new dependencies or code
+      - name: Run the Project
+        run: |
+          python main.py # Replace with the actual command for your project
